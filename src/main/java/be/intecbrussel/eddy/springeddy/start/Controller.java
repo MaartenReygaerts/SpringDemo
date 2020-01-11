@@ -20,6 +20,8 @@ public class Controller {
     @Autowired
     ServiceImpl service;
 
+    //method om elke guy op te vragen uit de database
+
     @RequestMapping(value = "/showAll")
         public ResponseEntity<List<Guy>> getAllGuys(){
 
@@ -30,6 +32,7 @@ public class Controller {
 
     }
 
+    //Reguest naar de serverImpl methode getAge
     @RequestMapping(method = RequestMethod.GET,value = "/getAge/{age}")
     public ResponseEntity<List<Guy>> getAge(@PathVariable("age") int age){
         List<Guy> ages = service.getAge(age);
@@ -38,7 +41,7 @@ public class Controller {
 
         return new ResponseEntity<List<Guy>>(ages, HttpStatus.OK);
     }
-
+    // Request naar de serverImpl methode addGuy
     @RequestMapping(method = RequestMethod.POST,value = "/add")
     public ResponseEntity<Guy>addGuy(@RequestBody Guy guy){
 
@@ -46,7 +49,7 @@ public class Controller {
 
         return new ResponseEntity<>(guy, HttpStatus.CREATED);
     }
-
+    //Request naar de serverImpl methode deleteById
     @RequestMapping(method = RequestMethod.DELETE,value = "/delete/{id}")
     public ResponseEntity<Guy>deleteById(@PathVariable int id){
 
@@ -55,7 +58,7 @@ public class Controller {
 
         return new ResponseEntity<>(HttpStatus.GONE);
     }
-
+    //Request naar de serverImpl methode om een hypotetische verzekering te krijgen op basis van de leeftijd. U kan zoeken op naam naar zijn of haar verzekering
     @RequestMapping(method = RequestMethod.GET,value="/getins/{name}")
     public ResponseEntity<Integer> getInsurance(@PathVariable String name){
 

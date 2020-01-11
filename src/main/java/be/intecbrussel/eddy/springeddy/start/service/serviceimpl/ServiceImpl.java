@@ -15,16 +15,19 @@ public class ServiceImpl implements ServiceInterface {
     @Autowired
     GuyRepository guyRepository;
 
-
+//Get all Guy objects
     @Override
     public List<Guy> getAll() {
         return guyRepository.findAll();
     }
 
+    //Constructor
     public ServiceImpl() {
         super();
     }
 
+
+    //methode om een Guy opbject op te vragen op basis van de leeftijd
     @Override
     public List<Guy> getAge(int age) throws GuyDoesNotExist {
 
@@ -32,13 +35,13 @@ public class ServiceImpl implements ServiceInterface {
                 return guyRepository.findGuyByAge(age);
 
     }
-
+    //methode addGuy. Voegt een Guy object toe aan de database
     @Override
     public void addGuy(Guy guy) {
         guyRepository.save(guy);
 
     }
-
+    //method delete by id
     @Override
     public void deleteById(int id) {
         guyRepository.deleteById(id);
@@ -51,6 +54,8 @@ public class ServiceImpl implements ServiceInterface {
      return guyRepository.findById(id).get();
     }
 
+    // berekening om te kijken hoeveel je verzekering waard is op basis van je leeftijd. Enkel hoger of lager dan 30 is momenteel mogelijk.
+    // Guy kan gevonden worden op basis van zijn naam.
     @Override
     public Integer getInsurance(String name) {
 
@@ -65,6 +70,7 @@ public class ServiceImpl implements ServiceInterface {
 
     }
 
+    //Agechecker om te kijken of er een guy bestaat met de leeftijd die jij ingeeft. Zo niet, throwed hij een GuyDoesNotExist Exception
     public void ageChecker(int age){
 
 
