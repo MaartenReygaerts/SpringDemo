@@ -47,12 +47,16 @@ public class ServiceImpl implements ServiceInterface {
         guyRepository.deleteById(id);
     }
 
-    @Override
-    public Guy getById(int id) {
 
+    @Override
+    public Guy getById(int id) throws GuyDoesNotExist {
+
+        //idChecker(id);
 
      return guyRepository.findById(id).get();
     }
+
+
 
     // berekening om te kijken hoeveel je verzekering waard is op basis van je leeftijd. Enkel hoger of lager dan 30 is momenteel mogelijk.
     // Guy kan gevonden worden op basis van zijn naam.
@@ -72,9 +76,39 @@ public class ServiceImpl implements ServiceInterface {
 
     //Methode dat een guy zal weergeven op basis van de naam.
     @Override
-    public Guy getGuyByName(String name) {
+    public Guy getGuyByName(String name) throws GuyDoesNotExist{
 
+        nameChecker(name);
         return guyRepository.findGuyByName(name);
+    }
+
+    //methode die kijkt of de ingevulde naam overeenkomt met een naam in de database, zo ja toon deze naam. Wanneer er geen overeenkomstige namen zijn word er een guyNotFoundException getrowd
+    private void nameChecker(String name) {
+
+        List<Guy> guy = guyRepository.findAll();
+
+        for (Guy guy1: guy) {
+            if (guy1.getName().equals(name) ){
+                break;
+            }
+            else{
+                throw new GuyDoesNotExist();
+            }
+        }
+    }
+
+    //checker dat kijkt of het id dat gevraagd is al bestaat
+    private void idChecker(int id) {
+        List<Guy> guy = guyRepository.findAll();
+
+        for (Guy guy1:guy ) {
+            if (guy1.getId() == id){
+                break;
+            }
+            else{
+                throw new GuyDoesNotExist();
+            }
+        }
     }
 
     //Agechecker om te kijken of er een guy bestaat met de leeftijd die jij ingeeft. Zo niet, throw een GuyDoesNotExist Exception

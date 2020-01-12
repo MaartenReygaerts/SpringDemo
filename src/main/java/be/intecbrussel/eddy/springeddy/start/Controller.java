@@ -50,6 +50,13 @@ public class Controller {
         return new ResponseEntity<>(guy, HttpStatus.CREATED);
     }
 
+    @RequestMapping(method = RequestMethod.GET,value = "/getGuyById/{id}")
+    public ResponseEntity<Guy>getGuyById(@PathVariable int id){
+        Guy guy = service.getById(id);
+
+        return new ResponseEntity<>(guy,HttpStatus.OK);
+    }
+
 
     //Request naar de serverImpl methode deleteById
     @RequestMapping(method = RequestMethod.DELETE,value = "/delete/{id}")
