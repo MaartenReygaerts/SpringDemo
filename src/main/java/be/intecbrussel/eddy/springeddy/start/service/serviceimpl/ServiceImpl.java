@@ -29,9 +29,9 @@ public class ServiceImpl implements ServiceInterface {
 
     //methode om een Guy opbject op te vragen op basis van de leeftijd
     @Override
-    public List<Guy> getAge(int age) throws GuyDoesNotExist {
+    public List<Guy> getAge(int age)  {
 
-        ageChecker(age);
+       //ageChecker(age);
                 return guyRepository.findGuyByAge(age);
 
     }
@@ -70,18 +70,26 @@ public class ServiceImpl implements ServiceInterface {
 
     }
 
-    //Agechecker om te kijken of er een guy bestaat met de leeftijd die jij ingeeft. Zo niet, throwed hij een GuyDoesNotExist Exception
+    @Override
+    public Guy getGuyByName(String name) {
+
+        return guyRepository.findGuyByName(name);
+    }
+
+    //Agechecker om te kijken of er een guy bestaat met de leeftijd die jij ingeeft. Zo niet, throw een GuyDoesNotExist Exception
     public void ageChecker(int age){
 
-
         List<Guy> guy = guyRepository.findAll();
-        for (Guy guy1: guy){
-            if (guy1.getAge() != age){
+
+        for (Guy guy1: guy) {
+            if (guy1.getAge() != age) {
                 throw new GuyDoesNotExist();
 
             }
 
+        }
+
+
     }
 
-
-}}
+}

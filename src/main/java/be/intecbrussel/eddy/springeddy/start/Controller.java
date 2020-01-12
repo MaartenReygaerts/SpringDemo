@@ -49,6 +49,8 @@ public class Controller {
 
         return new ResponseEntity<>(guy, HttpStatus.CREATED);
     }
+
+
     //Request naar de serverImpl methode deleteById
     @RequestMapping(method = RequestMethod.DELETE,value = "/delete/{id}")
     public ResponseEntity<Guy>deleteById(@PathVariable int id){
@@ -58,6 +60,8 @@ public class Controller {
 
         return new ResponseEntity<>(HttpStatus.GONE);
     }
+
+
     //Request naar de serverImpl methode om een hypotetische verzekering te krijgen op basis van de leeftijd. U kan zoeken op naam naar zijn of haar verzekering
     @RequestMapping(method = RequestMethod.GET,value="/getins/{name}")
     public ResponseEntity<Integer> getInsurance(@PathVariable String name){
@@ -66,6 +70,14 @@ public class Controller {
 
 
         return new ResponseEntity<>(insurance,HttpStatus.OK);
+    }
+
+
+    @RequestMapping(method = RequestMethod.GET, value = "/getGuyByName/{name}")
+    public ResponseEntity<Guy>getGuyByName(@PathVariable String name){
+        Guy guy = service.getGuyByName(name);
+
+        return new ResponseEntity<>(guy,HttpStatus.OK);
     }
 
 

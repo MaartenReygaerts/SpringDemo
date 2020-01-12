@@ -18,4 +18,6 @@ public interface ServiceInterface {
     Guy getById(int id);
 
     Integer getInsurance(String name);
+
+    Guy getGuyByName(String name);
 }
